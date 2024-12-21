@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #e0f7fa;
+            padding-top: 50px;
+        }
+        h2 {
+            color: #333;
+        }
+        .form-container {
+            display: inline-block;
+            text-align: left;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px 0px #000000;
+        }
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        input[type=submit] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 12px;
+        }
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script type="text/javascript">
+        function showAlert(message) {
+            if (message) {
+                alert(message);
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h2>Register Page</h2>
+    <div class="form-container">
+        <form method="POST">
+            Username: <input type="text" name="username" required><br>
+            Password: <input type="password" name="password" required><br>
+            <input type="submit" value="Register">
+        </form>
+        <a href="/login">Already have an account? Log In</a>
+    </div>
+    <script type="text/javascript">
+        const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get('message');
+        showAlert(message);
+    </script>
+</body>
+</html>

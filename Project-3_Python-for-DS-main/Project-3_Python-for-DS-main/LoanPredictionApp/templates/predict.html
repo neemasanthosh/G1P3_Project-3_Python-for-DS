@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Loan Eligibility Prediction</title>
+    <style>
+        /* Basic styles for the page */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        /* Styles for the heading and paragraph */
+        h2, p {
+            color: #333;
+            margin: 5px 0;
+        }
+        /* Container for the entire form */
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px 0px #000000;
+            max-width: 850px;
+            margin: 10px auto;
+            text-align: left;
+            height: 70vh; /* Set container height */
+        }
+        /* Styles for columns */
+        .column {
+            display: inline-block;
+            width: 45%;
+            padding: 5px;
+            vertical-align: top;
+        }
+        /* Styles for form groups */
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        /* Styles for the label */
+        label {
+            display: inline-block;
+            width: 50%;  
+            margin-right: 8px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        /* Input fields and select box styling */
+        input[type=number], select {
+            width: 45%;  
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 0.9em;
+        }
+        /* Button container */
+        .button-row {
+            text-align: center;
+            margin-top: 10px;
+            width: 100%;
+        }
+        /* Styling for submit button */
+        input[type=submit] {
+            background-color: #008CBA;
+            color: white;
+            padding: 10px 15px;
+            margin: 5px 0;
+            border: none;
+            cursor: pointer;
+            width: 30%;
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+        /* Hover effect for submit button */
+        input[type=submit]:hover {
+            background-color: #005f5f;
+        }
+        /* Styling for logout button */
+        .btn-logout {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 5px;
+            display: inline-block;
+            font-size: 0.9em;
+        }
+        /* Hover effect for logout button */
+        .btn-logout:hover {
+            background-color: #c23b22;
+        }
+        /* Container to display prediction results */
+        .result-container {
+            margin: 10px auto;
+            padding: 8px;
+            background-color: #e8f5e9;
+            border: 1px solid #4caf50;
+            border-radius: 8px;
+            width: 95%; /* Adjust width to fit within the form */
+            white-space: nowrap; /* Prevent line wrapping */
+            overflow: hidden; /* Prevent overflow and line wrapping */
+            text-align: center;
+        }
+        /* Style for the result message text */
+        .result-container h3 {
+            color: #388e3c;
+            font-size: 1.1em;
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis; /* Ensure text stays within boundaries */
+        }
+        /* Negative result styling */
+        .negative-result {
+            background-color: #ffebee;
+            border: 1px solid #f44336;
+        }
+        .negative-result h3 {
+            color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <!-- Display logged-in user information -->
+    <div style="text-align: left; padding-top: 10px; padding-left: 20px; font-size: 1em; font-weight: bold; color: #555;">
+        Logged in by : {{ username }}
+    </div>
+
+    <!-- Main Heading -->
+    <h2>House Loan Eligibility Prediction</h2>
+    <p>Please enter the details to check your house loan eligibility</p>
+
+    <!-- Form Container -->
+    <div class="form-container">
+        <!-- Use POST method and action to the predict route -->
+        <form method="POST" action="/predict" style="width: 100%;">
+            <!-- Left Column for input fields -->
+            <div class="column">
+                <!-- Form group for Gender input -->
+                <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <select name="gender" id="gender" required>
+                        <option value="" disabled selected>Select Gender</option> 
+                        <option value="male">male</option>
+                        <option value="female">female</option>
+                    </select>
+                </div>
+
+                <!-- Form group for Married input -->
+                <div class="form-group">
+                    <label for="married">Married:</label>
+                    <select name="married" id="married" required>
+                        <option value="" disabled selected>Are you Married</option> 
+                        <option value="no">no</option>
+                        <option value="yes">yes</option>
+                    </select>
+                </div>
+
+                <!-- Form group for Dependents input -->
+                <div class="form-group">
+                    <label for="dependents">Dependents:</label>
+                    <input type="number" name="dependents" id="dependents" min="0" required>
+                </div>
+
+                <!-- Form group for Education input -->
+                <div class="form-group">
+                    <label for="education">Education:</label>
+                    <select name="education" id="education" required>
+                        <option value="" disabled selected>Your Education</option> 
+                        <option value="graduate">graduate</option>
+                        <option value="not_graduate">not graduate</option>
+                    </select>
+                </div>
+
+                <!-- Form group for Self-employed input -->
+                <div class="form-group">
+                    <label for="self_employed">Self-employed:</label>
+                    <select name="self_employed" id="self_employed" required>
+                        <option value="" disabled selected>Your Status</option> 
+                        <option value="no">no</option>
+                        <option value="yes">yes</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Right Column for input fields -->
+            <div class="column">
+                <!-- Form group for Applicant Income input -->
+                <div class="form-group">
+                    <label for="applicant_income">Applicant Income ($):</label>
+                    <input type="number" name="applicant_income" id="applicant_income" min="1" required placeholder="Zero Not Allowed">
+                </div>
+
+                <!-- Form group for Coapplicant Income input -->
+                <div class="form-group">
+                    <label for="coapplicant_income">Coapplicant Income ($):</label>
+                    <input type="number" name="coapplicant_income" id="coapplicant_income" min="0" required placeholder="Zero if no income">
+                </div>
+
+                <!-- Form group for Loan Amount input -->
+                <div class="form-group">
+                    <label for="loan_amount">Loan Amount (K $):</label>
+                    <input type="number" name="loan_amount" id="loan_amount" min="0" required>
+                </div>
+
+                <!-- Form group for Loan Term input -->
+                <div class="form-group">
+                    <label for="loan_amount_term">Loan Term (Months):</label>
+                    <input type="number" name="loan_amount_term" id="loan_amount_term" min="0" required>
+                </div>
+
+                <!-- Form group for Credit History input -->
+                <div class="form-group">
+                    <label for="credit_history">Credit History:</label>
+                    <select name="credit_history" id="credit_history" required>
+                        <option value="" disabled selected>Cr History?</option> 
+                        <option value="1">yes</option>
+                        <option value="0">no</option>
+                    </select>
+                </div>
+
+                <!-- Form group for Property Area input -->
+                <div class="form-group">
+                    <label for="property_area">Property Area:</label>
+                    <select name="property_area" id="property_area" required>
+                        <option value="" disabled selected>Your Area?</option> 
+                        <option value="urban">urban</option>
+                        <option value="semiurban">semi urban</option>
+                        <option value="rural">rural</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Button Row for Submit and Result Display -->
+            <div class="button-row">
+                <input type="submit" value="Submit">
+            </div>
+
+            <!-- Display prediction result between Submit and Logout buttons -->
+            {% if prediction_text %}
+                <div class="result-container {% if 'Sorry' in prediction_text %}negative-result{% endif %}">
+                    <h3>{{ prediction_text }}</h3>
+                </div>
+            {% endif %}
+
+            <!-- Button Row for Logout -->
+            <div class="button-row">
+                <a href="/logout" class="btn-logout">Logout</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
